@@ -19,6 +19,10 @@ on:
     branches: [ "master" ]
   schedule:
     - cron: '41 15 * * 2'
+    
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
 
 jobs:
   analyze:
