@@ -74,6 +74,11 @@ namespace keycap
         /// keycap.core
         /// </summary>
         core,
+
+        /// <summary>
+        /// keycap.window
+        /// </summary>
+        window,
     };
 
     /// <summary>

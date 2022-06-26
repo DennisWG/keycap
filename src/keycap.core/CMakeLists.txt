@@ -23,6 +23,7 @@ add_library(keycap_core
 	"algorithm.ixx"
 	"concepts.ixx"
 	"error.ixx"
+	"fragments.ixx"
 	"keycap.core.ixx"
 	"math.ixx"
 	"scopeguard.ixx"
