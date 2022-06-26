@@ -6,6 +6,7 @@ add_library(keycap_core
 	"math.ixx"
 	"scopeguard.ixx"
 	"string.ixx"
+	"types.ixx"
 )
 add_library(keycap::core ALIAS keycap_core)
 

@@ -8,6 +8,7 @@ module;
 export module keycap.core:string;
 
 import :concepts;
+import :types;
 
 namespace keycap
 {
@@ -19,7 +20,7 @@ namespace keycap
     {
         std::vector<std::string> tokens;
 
-        size_t pos = 0;
+        sz pos = 0;
         std::string token;
         while ((pos = string.find(delimiter)) != std::string::npos)
         {
@@ -36,7 +37,7 @@ namespace keycap
     /// </summary>
     export std::string join(std_container auto const& container, std::string delimiter = " ")
     {
-        std::size_t buffer_size = 0;
+        sz buffer_size = 0;
         for (auto&& str : container)
         {
             buffer_size += str.size();
@@ -87,16 +88,16 @@ namespace keycap
     /// <summary>
     /// Returns a hash of the given string with the given size
     /// </summary>
-    export constexpr std::uint64_t hash_u64(char const* string, std::size_t size)
+    export constexpr u64 hash_u64(char const* string, std::size_t size)
     {
         if (size == 0)
             return 0;
 
-        std::uint64_t const p = 131;
-        std::uint64_t const m = 4294967291;
+        u64 const p = 131;
+        u64 const m = 4294967291;
 
-        std::uint64_t hash = 0;
-        std::uint64_t multiplier = 1;
+        u64 hash = 0;
+        u64 multiplier = 1;
 
         for (std::size_t i = 0; i < size - 1; ++i)
         {
@@ -110,7 +111,7 @@ namespace keycap
     /// <summary>
     /// Returns a hash of the given string with the given size
     /// </summary>
-    export consteval std::uint64_t operator"" _hash_u64(const char* string, std::size_t size)
+    export consteval u64 operator"" _hash_u64(const char* string, std::size_t size)
     {
         return hash_u64(string, size);
     }

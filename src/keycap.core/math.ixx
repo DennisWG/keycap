@@ -28,7 +28,8 @@ namespace keycap
     /// Maps the given value from the given {in_min, in_max} bounds to a corresponding value within the given {out_min,
     /// out_max}` bounds
     /// </summary>
-    export constexpr int map(int value, int in_min, int in_max, int out_min, int out_max)
+    export template <typename T>
+    constexpr T map(T value, T in_min, T in_max, T out_min, T out_max)
     {
         return ((value - in_min) * (out_max - out_min) / (in_max - in_min)) + out_min;
     }
