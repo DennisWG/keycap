@@ -25,12 +25,24 @@ FetchContent_Declare(
         GIT_TAG "605a34765aa5d5ecbf476b4598a862ada971b0cc" # v3.0.1
 )
 
-FetchContent_MakeAvailable(Catch2)
+FetchContent_Declare(
+        cppcoro
+        GIT_REPOSITORY "https://github.com/andreasbuhr/cppcoro"
+        GIT_TAG "1c5f90184a5ceae32fc25f49ed549d952f565e1e" # 22. June 2022
+)
+
+FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY "https://github.com/fmtlib/fmt"
+        GIT_TAG "b6f4ceaed0a0a24ccf575fab6c56dd50ccf6f1a9" # 8.1.1
+)
+
+FetchContent_MakeAvailable(Catch2 cppcoro fmt)
 
 include(Catch)
 
 add_executable(tests tests.cpp)
-target_link_libraries(tests PRIVATE keycap_keycap keycap_project_warnings keycap_project_options Catch2WithMain )
+target_link_libraries(tests PRIVATE keycap::keycap keycap::project_warnings keycap::project_options Catch2WithMain cppcoro fmt::fmt)
 set_target_properties(tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(tests PUBLIC cxx_std_23)
 
@@ -51,7 +63,7 @@ catch_discover_tests(
 
 # Add a file containing a set of constexpr tests
 add_executable(constexpr_tests constexpr_tests.cpp)
-target_link_libraries(constexpr_tests PRIVATE keycap_keycap keycap_project_options keycap_project_warnings Catch2WithMain )
+target_link_libraries(constexpr_tests PRIVATE keycap::keycap keycap::project_warnings keycap::project_options Catch2WithMain )
 set_target_properties(constexpr_tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(constexpr_tests PUBLIC cxx_std_23)
 
@@ -71,7 +83,7 @@ catch_discover_tests(
 # Disable the constexpr portion of the test, and build again this allows us to have an executable that we can debug when
 # things go wrong with the constexpr testing
 add_executable(relaxed_constexpr_tests constexpr_tests.cpp)
-target_link_libraries(relaxed_constexpr_tests PRIVATE keycap_keycap keycap_project_options keycap_project_warnings Catch2WithMain )
+target_link_libraries(relaxed_constexpr_tests PRIVATE keycap::keycap keycap::project_warnings keycap::project_options Catch2WithMain )
 target_compile_definitions(relaxed_constexpr_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
 set_target_properties(relaxed_constexpr_tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(relaxed_constexpr_tests PUBLIC cxx_std_23)

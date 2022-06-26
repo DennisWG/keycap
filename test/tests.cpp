@@ -79,6 +79,21 @@ Curabitur tristique quam commodo, placerat erat eu, scelerisque orci. In eget im
     }
 }
 
+TEST_CASE("Joining strings", "[keycap.string]")
+{
+    std::string input{"This is a random string, promise!"};
+
+    SECTION("Joining an empty container with an empty delimiter must yield an empty string")
+    {
+        REQUIRE(keycap::join(std::vector<std::string>{}, "").empty() == true);
+    }
+
+    SECTION("Joining an empty container with a non-empty delimiter must yield an empty string")
+    {
+        REQUIRE(keycap::join(std::vector<std::string>{}, " ").empty() == true);
+    }
+}
+
 import keycap.math;
 
 TEST_CASE("Calling get_index", "keycap.math")
