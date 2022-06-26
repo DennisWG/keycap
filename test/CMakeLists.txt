@@ -30,7 +30,7 @@ FetchContent_MakeAvailable(Catch2)
 include(Catch)
 
 add_executable(tests tests.cpp)
-target_link_libraries(tests PRIVATE keycap::core keycap::project_warnings keycap::project_options Catch2WithMain)
+target_link_libraries(tests PRIVATE keycap::core keycap::project_warnings keycap::project_options Catch2WithMain fmt::fmt)
 set_target_properties(tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(tests PUBLIC cxx_std_23)
 

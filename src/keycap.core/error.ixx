@@ -27,7 +27,7 @@ namespace keycap
     /// <summary>
     /// A list of all possible error codes that may happen in an application
     /// </summary>
-    export enum class error_code //
+    export enum class error_code : u64 //
     {
         /// <summary>
         /// Some external api issued an error
@@ -68,7 +68,7 @@ namespace keycap
     /// <summary>
     /// A list of modules. This maps to the C++ Modules
     /// </summary>
-    export enum class module //
+    export enum class module : u64 //
     {
         /// <summary>
         /// keycap.core
@@ -91,10 +91,25 @@ namespace keycap
         exception(error_code error, keycap::module module, u64 fragment, u32 line_number, std::string error_message)
           : error{error}
           , module{module}
+          , fragment{fragment}
           , line_number{line_number}
           , error_message{std::move(error_message)}
           , stack_trace(impl::generate_stack_trace())
         {
+        }
+
+        std::string to_string(bool include_stacktrace = false) const
+        {
+            if (include_stacktrace)
+            {
+                return fmt::format("Error [{}-{}-{}-{}] \"{}\":\n{}", static_cast<u64>(error), static_cast<u64>(module),
+                                   fragment, line_number, error_message, stack_trace);
+            }
+            else
+            {
+                return fmt::format("Error [{}-{}-{}-{}] \"{}\"", static_cast<u64>(error), static_cast<u64>(module),
+                                   fragment, line_number, error_message);
+            }
         }
     };
 }

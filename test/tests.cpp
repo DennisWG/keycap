@@ -2,7 +2,7 @@
 
 import keycap.core;
 
-TEST_CASE("Splitting strings", "[keycap.string]")
+TEST_CASE("Splitting strings", "[keycap.core:string]")
 {
     std::string input{"This is a random string, promise!"};
 
@@ -30,7 +30,7 @@ TEST_CASE("Splitting strings", "[keycap.string]")
     }
 }
 
-TEST_CASE("Converting strings", "[keycap.string]")
+TEST_CASE("Converting strings", "[keycap.core:string]")
 {
     std::string input{"We HaVe UnIt TEsTs!"};
 
@@ -45,7 +45,7 @@ TEST_CASE("Converting strings", "[keycap.string]")
     }
 }
 
-TEST_CASE("Hashing strings", "[keycap.string]")
+TEST_CASE("Hashing strings", "[keycap.core:string]")
 {
     SECTION("Hashing an empty string")
     {
@@ -79,7 +79,7 @@ Curabitur tristique quam commodo, placerat erat eu, scelerisque orci. In eget im
     }
 }
 
-TEST_CASE("Joining strings", "[keycap.string]")
+TEST_CASE("Joining strings", "[keycap.core:string]")
 {
     std::string input{"This is a random string, promise!"};
 
@@ -94,7 +94,7 @@ TEST_CASE("Joining strings", "[keycap.string]")
     }
 }
 
-TEST_CASE("Calling get_index", "keycap.math")
+TEST_CASE("Calling get_index", "[keycap.core:math]")
 {
     REQUIRE(keycap::get_index(0, 0, 15) == 0);
     REQUIRE(keycap::get_index(0, 1, 15) == 15);
@@ -103,13 +103,13 @@ TEST_CASE("Calling get_index", "keycap.math")
     REQUIRE(keycap::get_index(10, 10, 15) == 160);
 }
 
-TEST_CASE("Calling get_coordinates", "keycap.math")
+TEST_CASE("Calling get_coordinates", "[keycap.core:math]")
 {
     REQUIRE(keycap::get_coordinates(0, 15) == std::pair<int, int>{0, 0});
     REQUIRE(keycap::get_coordinates(10, 15) == std::pair<int, int>{10, 0});
 }
 
-TEST_CASE("Calling map", "keycap.math")
+TEST_CASE("Calling map", "[keycap.core:math]")
 {
     REQUIRE(keycap::map(0, 0, 10, 0, 100) == 0);
     REQUIRE(keycap::map(5, 0, 10, 0, 100) == 50);
@@ -118,7 +118,7 @@ TEST_CASE("Calling map", "keycap.math")
 
 #include <array>
 
-TEST_CASE("array_index", "keycap.algorithm")
+TEST_CASE("array_index", "[keycap.core:algorithm]")
 {
     SECTION("c-arrays")
     {
@@ -142,7 +142,7 @@ TEST_CASE("array_index", "keycap.algorithm")
     }
 }
 
-TEST_CASE("is_odd", "keycap.algorithm")
+TEST_CASE("is_odd", "[keycap.core:algorithm]")
 {
     SECTION("0 is even")
     {
@@ -155,7 +155,7 @@ TEST_CASE("is_odd", "keycap.algorithm")
     }
 }
 
-TEST_CASE("is_even", "keycap.algorithm")
+TEST_CASE("is_even", "[keycap.core:algorithm]")
 {
     SECTION("0 is even")
     {
@@ -166,4 +166,18 @@ TEST_CASE("is_even", "keycap.algorithm")
     {
         REQUIRE(keycap::is_even(1) == false);
     }
+}
+
+#include <fmt/format.h>
+
+TEST_CASE("exception::to_string", "[keycap.core:error]")
+{
+    using namespace keycap;
+    auto const line = __LINE__;
+    keycap::exception e{error_code::bad_file_content, module::core, 15, line, "Yo"};
+    std::string const expected_error_message =
+        fmt::format("Error [{}-{}-15-{}] \"Yo\"", static_cast<u64>(error_code::bad_file_content),
+                    static_cast<u64>(module::core), line);
+
+    REQUIRE(e.to_string() == expected_error_message);
 }

@@ -2,7 +2,7 @@
 
 import keycap.core;
 
-TEST_CASE("Hashing constexpr strings", "[keycap.string]")
+TEST_CASE("Hashing constexpr strings", "[keycap.core:string]")
 {
     using namespace keycap;
 
@@ -35,7 +35,7 @@ Curabitur tristique quam commodo, placerat erat eu, scelerisque orci. In eget im
     }
 }
 
-TEST_CASE("Calling constexpr get_index", "keycap.math")
+TEST_CASE("Calling constexpr get_index", "[keycap.core:math]")
 {
     STATIC_REQUIRE(keycap::get_index(0, 0, 15) == 0);
     STATIC_REQUIRE(keycap::get_index(0, 1, 15) == 15);
@@ -44,13 +44,13 @@ TEST_CASE("Calling constexpr get_index", "keycap.math")
     STATIC_REQUIRE(keycap::get_index(10, 10, 15) == 160);
 }
 
-TEST_CASE("Calling constexpr get_coordinates", "keycap.math")
+TEST_CASE("Calling constexpr get_coordinates", "[keycap.core:math]")
 {
     STATIC_REQUIRE(keycap::get_coordinates(0, 15) == std::pair<int, int>{0, 0});
     STATIC_REQUIRE(keycap::get_coordinates(10, 15) == std::pair<int, int>{10, 0});
 }
 
-TEST_CASE("Calling constexpr map", "keycap.math")
+TEST_CASE("Calling constexpr map", "[keycap.core:math]")
 {
     STATIC_REQUIRE(keycap::map(0, 0, 10, 0, 100) == 0);
     STATIC_REQUIRE(keycap::map(5, 0, 10, 0, 100) == 50);
@@ -59,7 +59,7 @@ TEST_CASE("Calling constexpr map", "keycap.math")
 
 #include <array>
 
-TEST_CASE("array_index", "keycap.algorithm")
+TEST_CASE("array_index", "[keycap.core:algorithm]")
 {
     SECTION("c-arrays")
     {
@@ -76,7 +76,7 @@ TEST_CASE("array_index", "keycap.algorithm")
     }
 }
 
-TEST_CASE("is_odd", "keycap.algorithm")
+TEST_CASE("is_odd", "[keycap.core:algorithm]")
 {
     SECTION("0 is even")
     {
@@ -89,7 +89,7 @@ TEST_CASE("is_odd", "keycap.algorithm")
     }
 }
 
-TEST_CASE("is_even", "keycap.algorithm")
+TEST_CASE("is_even", "[keycap.core:algorithm]")
 {
     SECTION("0 is even")
     {

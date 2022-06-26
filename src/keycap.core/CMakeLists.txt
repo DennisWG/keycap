@@ -22,12 +22,12 @@ FetchContent_MakeAvailable(fmt backward)
 add_library(keycap_core
 	"algorithm.ixx"
 	"concepts.ixx"
+	"error.ixx"
 	"keycap.core.ixx"
 	"math.ixx"
 	"scopeguard.ixx"
 	"string.ixx"
 	"types.ixx"
-	"error.ixx"
 )
 add_library(keycap::core ALIAS keycap_core)
 
