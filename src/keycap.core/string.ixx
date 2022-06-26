@@ -16,7 +16,7 @@ namespace keycap
     /// Returns a vector of strings that contains the substrings in the given string that are delimited by elements of
     /// the specified string.
     /// </summary>
-    export std::vector<std::string> split(std::string string, std::string delimiter = " ")
+    export [[nodiscard]] std::vector<std::string> split(std::string string, std::string delimiter = " ")
     {
         std::vector<std::string> tokens;
 
@@ -35,7 +35,7 @@ namespace keycap
     /// <summary>
     /// Joins the given vector of strings into one single string seperated by the given delimiter
     /// </summary>
-    export std::string join(std_container auto const& container, std::string delimiter = " ")
+    export [[nodiscard]] std::string join(std_container auto const& container, std::string delimiter = " ")
     {
         sz buffer_size = 0;
         for (auto&& str : container)
@@ -64,7 +64,7 @@ namespace keycap
     /// <summary>
     /// Returns a copy of the given string converted to lowercase.
     /// </summary>
-    export std::string to_lower(std::string string)
+    export [[nodiscard]] std::string to_lower(std::string string)
     {
         std::for_each(string.begin(), string.end(), [](char& c) {
             c = static_cast<char>(::tolower(c));
@@ -76,7 +76,7 @@ namespace keycap
     /// <summary>
     /// Returns a copy of the given string converted to uppercase.
     /// </summary>
-    export std::string to_upper(std::string string)
+    export [[nodiscard]] std::string to_upper(std::string string)
     {
         std::for_each(string.begin(), string.end(), [](char& c) {
             c = static_cast<char>(::toupper(c));
@@ -88,7 +88,7 @@ namespace keycap
     /// <summary>
     /// Returns a hash of the given string with the given size
     /// </summary>
-    export constexpr u64 hash_u64(char const* string, std::size_t size)
+    export constexpr [[nodiscard]] u64 hash_u64(char const* string, std::size_t size)
     {
         if (size == 0)
             return 0;
@@ -111,7 +111,7 @@ namespace keycap
     /// <summary>
     /// Returns a hash of the given string with the given size
     /// </summary>
-    export consteval u64 operator"" _hash_u64(const char* string, std::size_t size)
+    export consteval [[nodiscard]] u64 operator"" _hash_u64(const char* string, std::size_t size)
     {
         return hash_u64(string, size);
     }

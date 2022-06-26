@@ -19,7 +19,7 @@ namespace keycap
     export class timestep
     {
       public:
-        explicit timestep(float time = 0.f)
+        explicit timestep(float time = 0.f) noexcept
           : time_{time}
         {
         }
@@ -27,7 +27,7 @@ namespace keycap
         /// <summary>
         /// Returns the delta time in seconds
         /// </summary>
-        float seconds() const
+        [[nodiscard]] float seconds() const noexcept
         {
             return time_;
         }
@@ -35,7 +35,7 @@ namespace keycap
         /// <summary>
         /// Returns the delta time in milliseconds
         /// </summary>
-        float milliseconds() const
+        [[nodiscard]] float milliseconds() const noexcept
         {
             return time_ * 1000.f;
         }
@@ -58,7 +58,7 @@ namespace keycap
         /// </summary>
         /// <param name="delta_time">The delta time since the beginning of the last frame</param>
         /// <returns>May return false to skip the subsequent on_frame call</returns>
-        virtual bool on_pre_frame(window& window, timestep delta_time) = 0;
+        [[nodiscard]] virtual bool on_pre_frame(window& window, timestep delta_time) = 0;
 
         /// <summary>
         /// Will be called whenever a new frame is in flight. Gets called after on_pre_frame and before on_post_frame
@@ -124,7 +124,7 @@ namespace keycap
         friend class window_context;
 
       public:
-        ~window()
+        ~window() noexcept
         {
             glfwDestroyWindow(window_);
         }
@@ -240,7 +240,7 @@ namespace keycap
         /// <summary>
         /// Signals the window to close when next possible
         /// </summary>
-        void close()
+        void close() noexcept
         {
             glfwSetWindowShouldClose(window_, GLFW_TRUE);
         }
@@ -248,7 +248,7 @@ namespace keycap
         /// <summary>
         /// Returns the internal window handle
         /// </summary>
-        void* handle() const
+        [[nodiscard]] void* handle() const noexcept
         {
             return window_;
         }
@@ -256,7 +256,7 @@ namespace keycap
         /// <summary>
         /// Returns the current width and height of the window
         /// </summary>
-        std::pair<u32, u32> size() const
+        [[nodiscard]] std::pair<u32, u32> size() const noexcept
         {
             int width, height;
             glfwGetWindowSize(window_, &width, &height);
@@ -319,7 +319,7 @@ namespace keycap
         /// <summary>
         /// Creates a new window with the given parameters
         /// </summary>
-        window create_window(window_creation_parameters parameters)
+        [[nodiscard]] window create_window(window_creation_parameters parameters)
         {
             return window{parameters};
         }

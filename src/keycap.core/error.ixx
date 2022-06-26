@@ -19,7 +19,7 @@ import : types;
 
 namespace impl
 {
-    std::string generate_stack_trace();
+    [[nodiscard]] std::string generate_stack_trace();
 }
 
 namespace keycap
@@ -103,7 +103,7 @@ namespace keycap
         {
         }
 
-        std::string to_string(bool include_stacktrace = false) const
+        [[nodiscard]] std::string to_string(bool include_stacktrace = false) const
         {
             if (include_stacktrace)
             {
@@ -121,7 +121,7 @@ namespace keycap
 
 namespace impl
 {
-    std::string generate_lines(int num_lines, std::string_view filename, u32 line)
+    [[nodiscard]] std::string generate_lines(int num_lines, std::string_view filename, u32 line)
     {
         std::ifstream file(filename.data());
         if (!file)

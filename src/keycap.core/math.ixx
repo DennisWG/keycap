@@ -10,7 +10,7 @@ namespace keycap
     /// Returns the index within an array of one dimension at the given X- and Y-Coordinates with the given width
     /// </summary>
     export template <typename T>
-    constexpr T get_index(T x, T y, T width)
+    constexpr [[nodiscard]] T get_index(T x, T y, T width) noexcept
     {
         return x + width * y;
     }
@@ -19,7 +19,7 @@ namespace keycap
     /// Returns the X- and Y-Coordinates of the given index into an array of the given width
     /// </summary>
     export template <typename T>
-    constexpr std::pair<T, T> get_coordinates(T index, T width)
+    constexpr [[nodiscard]] std::pair<T, T> get_coordinates(T index, T width) noexcept
     {
         return {index % width, (index / width) % width};
     }
@@ -29,7 +29,7 @@ namespace keycap
     /// out_max}` bounds
     /// </summary>
     export template <typename T>
-    constexpr T map(T value, T in_min, T in_max, T out_min, T out_max)
+    constexpr [[nodiscard]] T map(T value, T in_min, T in_max, T out_min, T out_max) noexcept
     {
         return ((value - in_min) * (out_max - out_min) / (in_max - in_min)) + out_min;
     }
