@@ -1,4 +1,24 @@
 
+# ---- Dependencies ----
+
+include(FetchContent)
+
+FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY "https://github.com/fmtlib/fmt"
+        GIT_TAG "b6f4ceaed0a0a24ccf575fab6c56dd50ccf6f1a9" # 8.1.1
+)
+
+FetchContent_Declare(
+        backward
+        GIT_REPOSITORY "https://github.com/bombela/backward-cpp"
+        GIT_TAG "74184aad55777f0c04227edd56c3dea84b6a272f" # 08. June 2022
+)
+
+FetchContent_MakeAvailable(fmt backward)
+
+# ---- The library ----
+
 add_library(keycap_core
 	"algorithm.ixx"
 	"concepts.ixx"
@@ -7,6 +27,7 @@ add_library(keycap_core
 	"scopeguard.ixx"
 	"string.ixx"
 	"types.ixx"
+	"error.ixx"
 )
 add_library(keycap::core ALIAS keycap_core)
 
@@ -24,4 +45,6 @@ target_link_libraries(keycap_core
 	PRIVATE
 		keycap::project_options
         keycap::project_warnings
+		fmt::fmt
+		backward
 )
