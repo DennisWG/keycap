@@ -10,7 +10,7 @@ TEST_CASE("Splitting strings", "[keycap.core:string]")
     {
         constexpr std::size_t expected_size{33};
 
-        keycap::split(input, " ");
+        [[maybe_unused]] auto _ = keycap::split(input, " ");
 
         REQUIRE(input.size() == expected_size);
     }
@@ -91,6 +91,15 @@ TEST_CASE("Joining strings", "[keycap.core:string]")
     SECTION("Joining an empty container with a non-empty delimiter must yield an empty string")
     {
         REQUIRE(keycap::join(std::vector<std::string>{}, " ").empty() == true);
+    }
+
+    SECTION("Joining a container of strings with a delimiter must yield a non-empty string")
+    {
+        auto&& splits = keycap::split(input, " ");
+        auto&& value = keycap::join(splits, " ");
+
+        REQUIRE(value.empty() == false);
+        REQUIRE(value == input);
     }
 }
 
@@ -175,9 +184,24 @@ TEST_CASE("exception::to_string", "[keycap.core:error]")
     using namespace keycap;
     auto const line = __LINE__;
     keycap::exception e{error_code::bad_file_content, module::core, 15, line, "Yo"};
+
     std::string const expected_error_message =
-        fmt::format("Error [{}-{}-15-{}] \"Yo\"", static_cast<u64>(error_code::bad_file_content),
+        fmt::format("Error [{}-{}-15-{}]: \"Yo\"", static_cast<u64>(error_code::bad_file_content),
                     static_cast<u64>(module::core), line);
 
-    REQUIRE(e.to_string() == expected_error_message);
+    SECTION("exception::to_string(false) must yield only the error-code and error-message")
+    {
+        REQUIRE(e.to_string() == expected_error_message);
+        REQUIRE(e.to_string().size() == expected_error_message.size());
+    }
+
+    SECTION("exception::to_string(true) must yield the error-code, the error-message and a stack-trace")
+    {
+        auto&& error_string = e.to_string(true);
+        auto itr = error_string.find(expected_error_message);
+
+        REQUIRE(itr != std::string::npos);
+        REQUIRE(error_string.size() != expected_error_message.size());
+        REQUIRE(error_string.substr(expected_error_message.size()).starts_with("\nStack-trace:"));
+    }
 }

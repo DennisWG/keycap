@@ -77,7 +77,7 @@ namespace keycap
     /// <summary>
     /// An interface that provides entry points that will be called whenver an input event is handled by the window
     /// </summary>
-    struct input_event_handler
+    export struct input_event_handler
     {
         virtual ~input_event_handler() = default;
 

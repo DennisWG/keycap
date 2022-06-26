@@ -107,12 +107,12 @@ namespace keycap
         {
             if (include_stacktrace)
             {
-                return fmt::format("Error [{}-{}-{}-{}] \"{}\":\n{}", static_cast<u64>(error), static_cast<u64>(module),
+                return fmt::format("Error [{}-{}-{}-{}]: \"{}\"\nStack-trace:\n{}", static_cast<u64>(error), static_cast<u64>(module),
                                    fragment, line_number, error_message, stack_trace);
             }
             else
             {
-                return fmt::format("Error [{}-{}-{}-{}] \"{}\"", static_cast<u64>(error), static_cast<u64>(module),
+                return fmt::format("Error [{}-{}-{}-{}]: \"{}\"", static_cast<u64>(error), static_cast<u64>(module),
                                    fragment, line_number, error_message);
             }
         }
