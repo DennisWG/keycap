@@ -4,7 +4,7 @@ module;
 #include <exception>
 #include <functional>
 
-export module keycap.core:scopeguard;
+export module keycap.core : scopeguard;
 
 namespace keycap
 {

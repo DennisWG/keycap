@@ -2,7 +2,7 @@ module;
 
 #include <concepts>
 
-export module keycap.core:algorithm;
+export module keycap.core : algorithm;
 
 namespace keycap
 {
@@ -22,7 +22,7 @@ namespace keycap
     {
         return (value % 2) == 1;
     }
-    
+
     /// <summary>
     /// Returns whether the given value is even
     /// </summary>

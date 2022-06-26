@@ -2,7 +2,7 @@ module;
 
 #include <utility>
 
-export module keycap.core:math;
+export module keycap.core : math;
 
 namespace keycap
 {

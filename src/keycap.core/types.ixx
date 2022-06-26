@@ -1,9 +1,9 @@
 module;
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
-export module keycap.core:types;
+export module keycap.core : types;
 
 export using i8 = std::int8_t;
 export using u8 = std::uint8_t;

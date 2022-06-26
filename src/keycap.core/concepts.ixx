@@ -3,7 +3,7 @@ module;
 #include <concepts>
 #include <iterator>
 
-export module keycap.core:concepts;
+export module keycap.core : concepts;
 
 namespace keycap
 {

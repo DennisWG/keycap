@@ -5,10 +5,10 @@ module;
 #include <string_view>
 #include <vector>
 
-export module keycap.core:string;
+export module keycap.core : string;
 
-import :concepts;
-import :types;
+import : concepts;
+import : types;
 
 namespace keycap
 {
