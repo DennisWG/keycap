@@ -7,6 +7,7 @@ include(cmake/PreventInSourceBuilds.cmake)
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 add_library(keycap_project_options INTERFACE)
+add_library(keycap::project_options ALIAS keycap_project_options)
 
 set_target_properties(keycap_project_options PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(keycap_project_options INTERFACE cxx_std_23)
@@ -21,6 +22,7 @@ endif()
 
 # Link this 'library' to use the warnings specified in CompilerWarnings.cmake
 add_library(keycap_project_warnings INTERFACE)
+add_library(keycap::project_warnings ALIAS keycap_project_warnings)
 
 # Add linker configuration
 include(cmake/Linker.cmake)
