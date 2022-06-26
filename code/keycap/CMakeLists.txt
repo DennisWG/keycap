@@ -1,10 +1,11 @@
 
 add_library(keycap_keycap
-	"scopeguard.ixx"
+	"algorithm.ixx"
 	"concepts.ixx"
-	"math.ixx"
-	"string.ixx"
 	"keycap.ixx"
+	"math.ixx"
+	"scopeguard.ixx"
+	"string.ixx"
 )
 add_library(keycap::keycap ALIAS keycap_keycap)
 

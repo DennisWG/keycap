@@ -58,3 +58,50 @@ TEST_CASE("Calling constexpr map", "keycap.math")
     STATIC_REQUIRE(keycap::map(5, 0, 10, 0, 100) == 50);
     STATIC_REQUIRE(keycap::map(10, 0, 10, 0, 100) == 100);
 }
+
+import keycap.algorithm;
+
+#include <array>
+
+TEST_CASE("array_index", "keycap.algorithm")
+{
+    SECTION("c-arrays")
+    {
+        constexpr int index = 2;
+        constexpr int array[] = {0, 1, 2, 3};
+        STATIC_REQUIRE(keycap::array_index(array[index], array[0]) == index);
+    }
+
+    SECTION("std::array")
+    {
+        constexpr int index = 2;
+        constexpr std::array<int, 4> array{0, 1, 2, 3};
+        STATIC_REQUIRE(keycap::array_index(array[index], array[0]) == index);
+    }
+}
+
+TEST_CASE("is_odd", "keycap.algorithm")
+{
+    SECTION("0 is even")
+    {
+        STATIC_REQUIRE(keycap::is_odd(0u) == false);
+    }
+
+    SECTION("1 is odd")
+    {
+        STATIC_REQUIRE(keycap::is_odd(1u) == true);
+    }
+}
+
+TEST_CASE("is_even", "keycap.algorithm")
+{
+    SECTION("0 is even")
+    {
+        STATIC_REQUIRE(keycap::is_even(0) == true);
+    }
+
+    SECTION("1 is odd")
+    {
+        STATIC_REQUIRE(keycap::is_even(1) == false);
+    }
+}

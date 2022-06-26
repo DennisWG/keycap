@@ -117,3 +117,101 @@ TEST_CASE("Calling map", "keycap.math")
     REQUIRE(keycap::map(5, 0, 10, 0, 100) == 50);
     REQUIRE(keycap::map(10, 0, 10, 0, 100) == 100);
 }
+
+import keycap.algorithm;
+
+#include <array>
+
+TEST_CASE("array_index", "keycap.algorithm")
+{
+    SECTION("c-arrays")
+    {
+        constexpr int index = 2;
+        int array[] = {0, 1, 2, 3};
+        REQUIRE(keycap::array_index(array[index], array[0]) == index);
+    }
+
+    SECTION("std::array")
+    {
+        constexpr int index = 2;
+        std::array<int, 4> array{0, 1, 2, 3};
+        REQUIRE(keycap::array_index(array[index], array[0]) == index);
+    }
+
+    SECTION("std::vector")
+    {
+        constexpr int index = 2;
+        std::vector<int> array{0, 1, 2, 3};
+        REQUIRE(keycap::array_index(array[index], array[0]) == index);
+    }
+}
+
+TEST_CASE("is_odd", "keycap.algorithm")
+{
+    SECTION("0 is even")
+    {
+        REQUIRE(keycap::is_odd(0u) == false);
+    }
+
+    SECTION("1 is odd")
+    {
+        REQUIRE(keycap::is_odd(1u) == true);
+    }
+}
+
+TEST_CASE("is_even", "keycap.algorithm")
+{
+    SECTION("0 is even")
+    {
+        REQUIRE(keycap::is_even(0) == true);
+    }
+
+    SECTION("1 is odd")
+    {
+        REQUIRE(keycap::is_even(1) == false);
+    }
+}
+
+#include <cppcoro/generator.hpp>
+#include <cppcoro/static_thread_pool.hpp>
+#include <cppcoro/sync_wait.hpp>
+#include <cppcoro/task.hpp>
+#include <fmt/core.h>
+
+cppcoro::generator<std::uint64_t const> fibonacci()
+{
+    std::uint64_t a = 0, b = 1;
+    while (true)
+    {
+        co_yield b;
+        auto tmp = a;
+        a = b;
+        b += tmp;
+    }
+}
+
+cppcoro::task<std::uint64_t> foo(cppcoro::static_thread_pool& tp)
+{
+    co_await tp.schedule();
+
+    for (auto i : fibonacci())
+    {
+        if (i > 1'000'000'000)
+        {
+            co_return i;
+        }
+        fmt::print("{} ", i);
+    }
+
+    co_return 0;
+}
+
+TEST_CASE("Yo", "DELETE ME")
+{
+    cppcoro::static_thread_pool tp;
+
+    fmt::print("Threads: {}\n", tp.thread_count());
+
+    auto i = cppcoro::sync_wait(foo(tp));
+    fmt::print("\nResult: {}\n", i);
+}
