@@ -15,7 +15,7 @@ export namespace keycap
     /// Returns a vector of strings that contains the substrings in the given string that are delimited by elements of
     /// the specified string.
     /// </summary>
-    export std::vector<std::string> split_string(std::string string, std::string delimiter = " ");
+    export std::vector<std::string> split(std::string string, std::string delimiter = " ");
 
     /// <summary>
     /// Joins the given vector of strings into one single string seperated by the given delimiter
@@ -92,7 +92,7 @@ module : private;
 
 namespace keycap
 {
-    std::vector<std::string> split_string(std::string string, std::string delimiter)
+    std::vector<std::string> split(std::string string, std::string delimiter)
     {
         std::vector<std::string> tokens;
 

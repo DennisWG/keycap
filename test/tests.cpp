@@ -10,7 +10,7 @@ TEST_CASE("Splitting strings", "[keycap.string]")
     {
         constexpr std::size_t expected_size{33};
 
-        keycap::split_string(input, " ");
+        keycap::split(input, " ");
 
         REQUIRE(input.size() == expected_size);
     }
@@ -20,7 +20,7 @@ TEST_CASE("Splitting strings", "[keycap.string]")
         constexpr std::size_t expected_split_count{6};
         std::vector<std::string> const expected_tokens{"This", "is", "a", "random", "string,", "promise!"};
 
-        auto&& tokens = keycap::split_string(input, " ");
+        auto&& tokens = keycap::split(input, " ");
 
         REQUIRE(tokens.size() == expected_split_count);
         for (std::size_t i = 0; i < tokens.size(); ++i)
