@@ -1,1 +1,1 @@
-add_subdirectory(keycap)
+add_subdirectory(keycap.core)

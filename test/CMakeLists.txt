@@ -30,7 +30,7 @@ FetchContent_MakeAvailable(Catch2)
 include(Catch)
 
 add_executable(tests tests.cpp)
-target_link_libraries(tests PRIVATE keycap::keycap keycap::project_warnings keycap::project_options Catch2WithMain)
+target_link_libraries(tests PRIVATE keycap::core keycap::project_warnings keycap::project_options Catch2WithMain)
 set_target_properties(tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(tests PUBLIC cxx_std_23)
 
@@ -51,7 +51,7 @@ catch_discover_tests(
 
 # Add a file containing a set of constexpr tests
 add_executable(constexpr_tests constexpr_tests.cpp)
-target_link_libraries(constexpr_tests PRIVATE keycap::keycap keycap::project_warnings keycap::project_options Catch2WithMain )
+target_link_libraries(constexpr_tests PRIVATE keycap::core keycap::project_warnings keycap::project_options Catch2WithMain )
 set_target_properties(constexpr_tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(constexpr_tests PUBLIC cxx_std_23)
 
@@ -71,7 +71,7 @@ catch_discover_tests(
 # Disable the constexpr portion of the test, and build again this allows us to have an executable that we can debug when
 # things go wrong with the constexpr testing
 add_executable(relaxed_constexpr_tests constexpr_tests.cpp)
-target_link_libraries(relaxed_constexpr_tests PRIVATE keycap::keycap keycap::project_warnings keycap::project_options Catch2WithMain )
+target_link_libraries(relaxed_constexpr_tests PRIVATE keycap::core keycap::project_warnings keycap::project_options Catch2WithMain )
 target_compile_definitions(relaxed_constexpr_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
 set_target_properties(relaxed_constexpr_tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(relaxed_constexpr_tests PUBLIC cxx_std_23)

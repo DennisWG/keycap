@@ -4,7 +4,7 @@ module;
 #include <exception>
 #include <functional>
 
-export module keycap.scopeguard;
+export module keycap.core:scopeguard;
 
 namespace keycap
 {
@@ -80,5 +80,3 @@ namespace keycap
         execution policy_ = always;
     };
 }
-
-module : private;

@@ -5,17 +5,31 @@ module;
 #include <string_view>
 #include <vector>
 
-export module keycap.string;
+export module keycap.core:string;
 
-import keycap.concepts;
+import :concepts;
 
-export namespace keycap
+namespace keycap
 {
     /// <summary>
     /// Returns a vector of strings that contains the substrings in the given string that are delimited by elements of
     /// the specified string.
     /// </summary>
-    export std::vector<std::string> split(std::string string, std::string delimiter = " ");
+    export std::vector<std::string> split(std::string string, std::string delimiter = " ")
+    {
+        std::vector<std::string> tokens;
+
+        size_t pos = 0;
+        std::string token;
+        while ((pos = string.find(delimiter)) != std::string::npos)
+        {
+            tokens.emplace_back(string.substr(0, pos));
+            string.erase(0, pos + delimiter.length());
+        }
+        tokens.emplace_back(string);
+
+        return tokens;
+    }
 
     /// <summary>
     /// Joins the given vector of strings into one single string seperated by the given delimiter
@@ -49,12 +63,26 @@ export namespace keycap
     /// <summary>
     /// Returns a copy of the given string converted to lowercase.
     /// </summary>
-    export std::string to_lower(std::string string);
+    export std::string to_lower(std::string string)
+    {
+        std::for_each(string.begin(), string.end(), [](char& c) {
+            c = static_cast<char>(::tolower(c));
+        });
+
+        return string;
+    }
 
     /// <summary>
     /// Returns a copy of the given string converted to uppercase.
     /// </summary>
-    export std::string to_upper(std::string string);
+    export std::string to_upper(std::string string)
+    {
+        std::for_each(string.begin(), string.end(), [](char& c) {
+            c = static_cast<char>(::toupper(c));
+        });
+
+        return string;
+    }
 
     /// <summary>
     /// Returns a hash of the given string with the given size
@@ -82,47 +110,8 @@ export namespace keycap
     /// <summary>
     /// Returns a hash of the given string with the given size
     /// </summary>
-    consteval std::uint64_t operator"" _hash_u64(const char* string, std::size_t size)
+    export consteval std::uint64_t operator"" _hash_u64(const char* string, std::size_t size)
     {
         return hash_u64(string, size);
-    }
-}
-
-module : private;
-
-namespace keycap
-{
-    std::vector<std::string> split(std::string string, std::string delimiter)
-    {
-        std::vector<std::string> tokens;
-
-        size_t pos = 0;
-        std::string token;
-        while ((pos = string.find(delimiter)) != std::string::npos)
-        {
-            tokens.emplace_back(string.substr(0, pos));
-            string.erase(0, pos + delimiter.length());
-        }
-        tokens.emplace_back(string);
-
-        return tokens;
-    }
-
-    std::string to_lower(std::string string)
-    {
-        std::for_each(string.begin(), string.end(), [](char& c) {
-            c = static_cast<char>(::tolower(c));
-        });
-
-        return string;
-    }
-
-    std::string to_upper(std::string string)
-    {
-        std::for_each(string.begin(), string.end(), [](char& c) {
-            c = static_cast<char>(::toupper(c));
-        });
-
-        return string;
     }
 }

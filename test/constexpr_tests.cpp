@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-import keycap.string;
+import keycap.core;
 
 TEST_CASE("Hashing constexpr strings", "[keycap.string]")
 {
@@ -35,8 +35,6 @@ Curabitur tristique quam commodo, placerat erat eu, scelerisque orci. In eget im
     }
 }
 
-import keycap.math;
-
 TEST_CASE("Calling constexpr get_index", "keycap.math")
 {
     STATIC_REQUIRE(keycap::get_index(0, 0, 15) == 0);
@@ -58,8 +56,6 @@ TEST_CASE("Calling constexpr map", "keycap.math")
     STATIC_REQUIRE(keycap::map(5, 0, 10, 0, 100) == 50);
     STATIC_REQUIRE(keycap::map(10, 0, 10, 0, 100) == 100);
 }
-
-import keycap.algorithm;
 
 #include <array>
 

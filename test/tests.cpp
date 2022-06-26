@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
-import keycap.string;
+import keycap.core;
 
 TEST_CASE("Splitting strings", "[keycap.string]")
 {
@@ -94,8 +94,6 @@ TEST_CASE("Joining strings", "[keycap.string]")
     }
 }
 
-import keycap.math;
-
 TEST_CASE("Calling get_index", "keycap.math")
 {
     REQUIRE(keycap::get_index(0, 0, 15) == 0);
@@ -117,8 +115,6 @@ TEST_CASE("Calling map", "keycap.math")
     REQUIRE(keycap::map(5, 0, 10, 0, 100) == 50);
     REQUIRE(keycap::map(10, 0, 10, 0, 100) == 100);
 }
-
-import keycap.algorithm;
 
 #include <array>
 

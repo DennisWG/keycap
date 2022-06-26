@@ -2,7 +2,7 @@ module;
 
 #include <concepts>
 
-export module keycap.algorithm;
+export module keycap.core:algorithm;
 
 namespace keycap
 {
@@ -31,5 +31,3 @@ namespace keycap
         return !is_odd(std::forward<decltype(value)>(value));
     }
 }
-
-module : private;
