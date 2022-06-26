@@ -134,6 +134,8 @@ namespace keycap
         /// </summary>
         void register_input_events(input_event_handler& input_handler)
         {
+            input_handler_ = &input_handler;
+
             glfwSetCursorPosCallback(window_, [](GLFWwindow* handle, double x, double y) {
                 auto* window = static_cast<keycap::window*>(glfwGetWindowUserPointer(handle));
                 if (window->input_handler_)
