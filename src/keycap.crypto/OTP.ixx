@@ -63,7 +63,8 @@ namespace keycap::crypto
         }
 
         /// <summary>
-        /// Validates the given code for the given secret
+        /// Validates the given code for the given secret. This also checks the previous valid code as well as the next
+        /// one, in case the user is a little out-of-sync
         /// </summary>
         export [[nodiscard]] bool validate(std::string const& key, std::string const& code)
         {
