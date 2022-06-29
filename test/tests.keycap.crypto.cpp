@@ -13,7 +13,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
     int constexpr num_tests = 10;
     int constexpr num_digits = 8;
 
-    SECTION("HOTP must generate correct consecutive one-time passwords")
+    SECTION("HOTP - must generate correct consecutive one-time passwords")
     {
         std::array<char[num_digits + 1], num_tests> constexpr results = {
             "84755224", "94287082", "37359152", "26969429", "40338314",
@@ -26,7 +26,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
         }
     }
 
-    SECTION("TOTP must generate correct consecutive one-time passwords")
+    SECTION("TOTP - must generate correct consecutive one-time passwords")
     {
         time_t constexpr start = 0;
         time_t constexpr step = 30;
@@ -44,7 +44,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
         }
     }
 
-    SECTION("TOTP validate must accept the previous, as well as the next code too")
+    SECTION("TOTP - validate must accept the previous, as well as the next code too")
     {
         const auto time = std::time(nullptr);
         const auto now = static_cast<u64>(time);
@@ -58,7 +58,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
         }
     }
 
-    SECTION("TOTP validate return false when entered garbage values")
+    SECTION("TOTP - validate must return false when entered garbage values")
     {
         std::array<char[num_digits + 1], num_tests> constexpr codes = {
             "", "1", "00000000", "99999999", "23567aaa", "aaaaaaaa", "+#!§$%&/", "43575679", "01010101", "1010101",
