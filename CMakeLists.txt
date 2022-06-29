@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.21)
 project(keycap VERSION 0.0.1 LANGUAGES CXX)
 include(cmake/StandardProjectSettings.cmake)
 include(cmake/PreventInSourceBuilds.cmake)
+ 
+ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 add_library(keycap_project_options INTERFACE)

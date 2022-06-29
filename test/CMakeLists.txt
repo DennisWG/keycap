@@ -31,9 +31,10 @@ include(Catch)
 
 add_executable(tests
     "tests.keycap.core.cpp"
+    "tests.keycap.crypto.cpp"
     "tests.keycap.window.cpp"
 )
-target_link_libraries(tests PRIVATE keycap::core keycap::window keycap::project_warnings keycap::project_options Catch2WithMain fmt::fmt)
+target_link_libraries(tests PRIVATE keycap::core keycap::crypto keycap::window keycap::project_warnings keycap::project_options Catch2WithMain fmt::fmt)
 set_target_properties(tests PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_features(tests PUBLIC cxx_std_23)
 
