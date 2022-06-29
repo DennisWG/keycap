@@ -8,6 +8,8 @@ import keycap.crypto;
 
 TEST_CASE("OTP", "[keycap.crypto:otp]")
 {
+    using namespace keycap::crypto;
+
     SECTION("HOTP must generate correct consecutive one-time passwords")
     {
         std::string const key = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";
@@ -19,7 +21,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
 
         for (int i = 0; i < num_tests; ++i)
         {
-            REQUIRE(results[i] == keycap::crypto::hotp::generate(key, i, num_digits));
+            REQUIRE(results[i] == hotp::generate(key, i, num_digits));
         }
     }
 
@@ -39,7 +41,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
 
         for (int i = 0; i < num_tests; ++i)
         {
-            REQUIRE(results[i] == keycap::crypto::totp::generate(key, test_time[i], start, step, num_digits));
+            REQUIRE(results[i] == totp::generate(key, test_time[i], start, step, num_digits));
         }
     }
 
@@ -60,7 +62,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
                 auto step = static_cast<u64>((std::floor(now / 30))) + j;
                 auto code = keycap::crypto::hotp::generate(key, step, num_digits);
 
-                REQUIRE(keycap::crypto::totp::validate(key, code) == true);
+                REQUIRE(totp::validate(key, code) == true);
             }
         }
     }
@@ -77,7 +79,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
 
         for (auto&& code : codes)
         {
-            REQUIRE(keycap::crypto::totp::validate(key, code) == false);
+            REQUIRE(totp::validate(key, code) == false);
         }
     }
 }
