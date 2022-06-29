@@ -52,7 +52,7 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
         for (int j = -1; j < 2; ++j)
         {
             auto step = static_cast<u64>((std::floor(now / 30))) + j;
-            auto code = keycap::crypto::hotp::generate(key, step, num_digits);
+            auto code = hotp::generate(key, step, num_digits);
 
             REQUIRE(totp::validate(key, code) == true);
         }
