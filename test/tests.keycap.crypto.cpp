@@ -9,14 +9,15 @@ import keycap.crypto;
 TEST_CASE("OTP", "[keycap.crypto:otp]")
 {
     using namespace keycap::crypto;
+    std::string const key = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";
+    int constexpr num_tests = 10;
+    int constexpr num_digits = 8;
 
     SECTION("HOTP must generate correct consecutive one-time passwords")
     {
-        std::string const key = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";
-        int constexpr num_tests = 10;
-        int constexpr num_digits = 6;
         std::array<char[num_digits + 1], num_tests> constexpr results = {
-            "755224", "287082", "359152", "969429", "338314", "254676", "287922", "162583", "399871", "520489",
+            "84755224", "94287082", "37359152", "26969429", "40338314",
+            "68254676", "18287922", "82162583", "73399871", "45520489",
         };
 
         for (int i = 0; i < num_tests; ++i)
@@ -27,16 +28,14 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
 
     SECTION("TOTP must generate correct consecutive one-time passwords")
     {
-        std::string const key = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";
         time_t constexpr start = 0;
         time_t constexpr step = 30;
 
-        int constexpr num_tests = 6;
-        sz constexpr num_digits = 8;
-
-        time_t constexpr test_time[num_tests] = {59, 1111111109, 1111111111, 1234567890, 2000000000, 20000000000};
+        time_t constexpr test_time[num_tests] = {59, 1111111109, 1111111111, 1234567890, 2000000000,
+                                                 0,  2773937592, 5670,       465999,     90};
         std::array<char[num_digits + 1], num_tests> constexpr results = {
-            "94287082", "07081804", "14050471", "89005924", "69279037", "65353130",
+            "94287082", "07081804", "14050471", "89005924", "69279037",
+            "84755224", "61240089", "26915604", "71304149", "26969429",
         };
 
         for (int i = 0; i < num_tests; ++i)
@@ -47,34 +46,22 @@ TEST_CASE("OTP", "[keycap.crypto:otp]")
 
     SECTION("TOTP validate must accept the previous, as well as the next code too")
     {
-        std::string const key = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";
-
-        int constexpr num_tests = 6;
-        sz constexpr num_digits = 8;
-
         const auto time = std::time(nullptr);
         const auto now = static_cast<u64>(time);
 
-        for (int i = 0; i < num_tests; ++i)
+        for (int j = -1; j < 2; ++j)
         {
-            for (int j = -1; j < 2; ++j)
-            {
-                auto step = static_cast<u64>((std::floor(now / 30))) + j;
-                auto code = keycap::crypto::hotp::generate(key, step, num_digits);
+            auto step = static_cast<u64>((std::floor(now / 30))) + j;
+            auto code = keycap::crypto::hotp::generate(key, step, num_digits);
 
-                REQUIRE(totp::validate(key, code) == true);
-            }
+            REQUIRE(totp::validate(key, code) == true);
         }
     }
 
     SECTION("TOTP validate return false when entered garbage values")
     {
-        std::string const key = "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ";
-        int constexpr num_tests = 6;
-        sz constexpr num_digits = 8;
-
         std::array<char[num_digits + 1], num_tests> constexpr codes = {
-            "", "1", "00000000", "99999999", "23567aaa", "aaaaaaaa",
+            "", "1", "00000000", "99999999", "23567aaa", "aaaaaaaa", "+#!§$%&/", "43575679", "01010101", "1010101",
         };
 
         for (auto&& code : codes)
