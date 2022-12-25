@@ -36,6 +36,7 @@ target_sources(keycap_core
 		"keycap.core-scopeguard.ixx"
 		"keycap.core-string.ixx"
 		"keycap.core-types.ixx"
+		"keycap.core-array.ixx"
  )
 
 target_include_directories(keycap_core

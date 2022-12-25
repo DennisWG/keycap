@@ -205,3 +205,76 @@ TEST_CASE("exception::to_string", "[keycap.core:error]")
         REQUIRE(error_string.substr(expected_error_message.size()).starts_with("\nStack-trace:"));
     }
 }
+
+TEST_CASE("to_byte_array", "[keycap.core:array]")
+{
+    SECTION("i16")
+    {
+        constexpr i16 value = 0x0BEE;
+        constexpr std::array<u8, 2> expected = {0xEE, 0x0B};
+
+        REQUIRE(keycap::to_byte_array(value) == expected);
+    }
+
+    SECTION("u16")
+    {
+        constexpr u16 value = 0xBEEF;
+        constexpr std::array<u8, 2> expected = {0xEF, 0xBE};
+
+        REQUIRE(keycap::to_byte_array(value) == expected);
+    }
+
+    SECTION("i32")
+    {
+        constexpr i32 value = 0x0D15EA5E;
+        constexpr std::array<u8, 4> expected = {0x5E, 0xEA, 0x15, 0x0D};
+
+        REQUIRE(keycap::to_byte_array(value) == expected);
+    }
+
+    SECTION("u32")
+    {
+        constexpr u32 value = 0xC0CAC01A;
+        constexpr std::array<u8, 4> expected = {0x1A, 0xC0, 0xCA, 0xC0};
+
+        REQUIRE(keycap::to_byte_array(value) == expected);
+    }
+
+    SECTION("i64")
+    {
+        constexpr i64 value = 0x0F1CECAFEBADF00D;
+        constexpr std::array<u8, 8> expected = {0x0D, 0xF0, 0xAD, 0xEB, 0xAF, 0xEC, 0x1C, 0x0F};
+
+        REQUIRE(keycap::to_byte_array(value) == expected);
+    }
+
+    SECTION("u64")
+    {
+        constexpr u64 value = 0xFACEFEEDBABEBEEF;
+        constexpr std::array<u8, 8> expected = {0xEF, 0xBE, 0xBE, 0xBA, 0xED, 0xFE, 0xCE, 0xFA};
+
+        REQUIRE(keycap::to_byte_array(value) == expected);
+    }
+}
+
+TEST_CASE("from_byte_array", "[keycap.core:array]")
+{
+    SECTION("Converting bytes to u32 must yield expected result")
+    {
+        constexpr std::array<u8, 4> value = {0x1A, 0xC0, 0xCA, 0xC0};
+        constexpr u32 expected = 0xC0CAC01A;
+
+        REQUIRE(keycap::from_byte_array<u32>(value) == expected);
+    }
+}
+
+TEST_CASE("from_byte_vector", "[keycap.core:array]")
+{
+    SECTION("Converting bytes to u32 must yield expected result")
+    {
+        std::vector<u8> const value = {0x1A, 0xC0, 0xCA, 0xC0};
+        constexpr u32 expected = 0xC0CAC01A;
+
+        REQUIRE(keycap::from_byte_vector<u32>(value) == expected);
+    }
+}
