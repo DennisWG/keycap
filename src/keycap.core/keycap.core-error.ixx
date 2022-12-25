@@ -79,6 +79,11 @@ namespace keycap
         /// keycap.window
         /// </summary>
         window,
+
+        /// <summary>
+        /// keycap.crypto
+        /// </summary>
+        crypto,
     };
 
     /// <summary>

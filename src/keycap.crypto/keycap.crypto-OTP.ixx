@@ -3,24 +3,38 @@ module;
 #include <botan/base32.h>
 #include <botan/mac.h>
 
+#include <fmt/format.h>
+
 #include <array>
 #include <cmath>
 #include <string>
 
-export module keycap.crypto : opt;
+export module keycap.crypto:opt;
 
 import keycap.core;
+import :fragments;
 
 namespace keycap::crypto
 {
     namespace hotp
     {
+        constexpr sz required_min_digits = 6;
         /// <summary>
         /// Implementation of the OATH HMAC-based One-Time Password algorithm.
         /// See: https://tools.ietf.org/html/rfc4226
         /// </summary>
-        export [[nodiscard]] std::string generate(std::string const& key, u64 counter, sz num_digits = 6)
+        export [[nodiscard]] std::string generate(std::string const& key, u64 counter,
+                                                  sz num_digits = required_min_digits)
         {
+            if (num_digits < required_min_digits)
+            {
+                auto msg =
+                    fmt::format("As required per RFC 4226, num_digits can not be smaller than `{}`!\n"
+                                "See https://www.rfc-editor.org/rfc/rfc4226#section-13.2 Appendix A for more details.",
+                                required_min_digits);
+                throw exception{error_code::invalid_argument, module::crypto, fragment::otp, __LINE__, msg};
+            }
+
             auto hmac = Botan::MessageAuthenticationCode::create("HMAC(SHA-1)");
 
             hmac->set_key(Botan::base32_decode(key));

@@ -8,13 +8,18 @@
  find_package(Botan3)
 # ---- The library ----
 
-add_library(keycap_crypto
-	"keycap.crypto.ixx"
-	"OTP.ixx"
-)
+add_library(keycap_crypto)
 add_library(keycap::crypto ALIAS keycap_crypto)
 
-set_property(TARGET keycap_crypto PROPERTY CMAKE_GENERATOR "msbuild")
+target_sources(keycap_crypto
+  PRIVATE
+     
+  PUBLIC
+     FILE_SET cxx_modules TYPE CXX_MODULES FILES
+		"keycap.crypto.ixx"
+		"keycap.crypto-OTP.ixx"
+		"keycap.crypto-fragments.ixx"
+)
 
 target_include_directories(keycap_crypto
 	PUBLIC

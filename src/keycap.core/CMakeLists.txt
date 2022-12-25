@@ -19,20 +19,24 @@ FetchContent_MakeAvailable(fmt backward)
 
 # ---- The library ----
 
-add_library(keycap_core
-	"algorithm.ixx"
-	"concepts.ixx"
-	"error.ixx"
-	"fragments.ixx"
-	"keycap.core.ixx"
-	"math.ixx"
-	"scopeguard.ixx"
-	"string.ixx"
-	"types.ixx"
-)
+add_library(keycap_core)
 add_library(keycap::core ALIAS keycap_core)
 
-set_property(TARGET keycap_core PROPERTY CMAKE_GENERATOR "msbuild")
+target_sources(keycap_core
+  PRIVATE
+     
+  PUBLIC
+     FILE_SET cxx_modules TYPE CXX_MODULES FILES
+		"keycap.core-algorithm.ixx"
+		"keycap.core-concepts.ixx"
+		"keycap.core-error.ixx"
+		"keycap.core-fragments.ixx"
+		"keycap.core.ixx"
+		"keycap.core-math.ixx"
+		"keycap.core-scopeguard.ixx"
+		"keycap.core-string.ixx"
+		"keycap.core-types.ixx"
+ )
 
 target_include_directories(keycap_core
 	PUBLIC

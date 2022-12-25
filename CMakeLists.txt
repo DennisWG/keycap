@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.23)
 
 # Set the project name to your project name, my project isn't very descriptive
 project(keycap VERSION 0.0.1 LANGUAGES CXX)
@@ -6,6 +6,13 @@ include(cmake/StandardProjectSettings.cmake)
 include(cmake/PreventInSourceBuilds.cmake)
  
  set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+
+ set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API "3c375311-a3c9-4396-a187-3227ef642046")
+if(WIN32)
+  include(cmake/msvc_modules.cmake)
+else()
+  include(cmake/gcc_modules.cmake)
+endif()
 
 # Link this 'library' to set the c++ standard / compile-time options requested
 add_library(keycap_project_options INTERFACE)

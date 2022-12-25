@@ -13,12 +13,20 @@ FetchContent_MakeAvailable(glfw)
 
 # ---- The library ----
 
-add_library(keycap_window
-	"keycap.window.ixx"
- "window.ixx" "input_mappings.ixx" "input_events.ixx" "fragments.ixx")
+add_library(keycap_window)
 add_library(keycap::window ALIAS keycap_window)
 
-set_property(TARGET keycap_window PROPERTY CMAKE_GENERATOR "msbuild")
+target_sources(keycap_window
+  PRIVATE
+     
+  PUBLIC
+     FILE_SET cxx_modules TYPE CXX_MODULES FILES
+		"keycap.window.ixx"
+		"window.ixx"
+		"input_mappings.ixx"
+		"input_events.ixx"
+		"fragments.ixx"
+)
 
 target_include_directories(keycap_window
 	PUBLIC
