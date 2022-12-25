@@ -155,7 +155,7 @@ namespace impl
         return buffer;
     }
 
-    std::string generate_stack_trace()
+    [[nodiscard]] std::string generate_stack_trace()
     {
         backward::StackTrace st;
         backward::TraceResolver resolver;

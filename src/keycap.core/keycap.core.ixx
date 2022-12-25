@@ -7,6 +7,7 @@ export import :array;
 export import :concepts;
 export import :error;
 export import :math;
+export import :random;
 export import :scopeguard;
 export import :string;
 export import :types;

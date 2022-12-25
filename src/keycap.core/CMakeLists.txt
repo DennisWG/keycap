@@ -24,7 +24,6 @@ add_library(keycap::core ALIAS keycap_core)
 
 target_sources(keycap_core
   PRIVATE
-     
   PUBLIC
      FILE_SET cxx_modules TYPE CXX_MODULES FILES
 		"keycap.core-algorithm.ixx"
@@ -37,7 +36,8 @@ target_sources(keycap_core
 		"keycap.core-string.ixx"
 		"keycap.core-types.ixx"
 		"keycap.core-array.ixx"
- )
+		"keycap.core-random.ixx"
+)
 
 target_include_directories(keycap_core
 	PUBLIC

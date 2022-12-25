@@ -278,3 +278,121 @@ TEST_CASE("from_byte_vector", "[keycap.core:array]")
         REQUIRE(keycap::from_byte_vector<u32>(value) == expected);
     }
 }
+
+TEST_CASE("keycap::random", "keycap.core:random")
+{
+    // Do not add new tests here! These tests will run back to back, modifying the prng state. Adding tests up here
+    // will make all the tests below fail. Only add to the bottom!
+
+    SECTION("u64")
+    {
+        constexpr u64 expected = 0xb0c41f6c3353405d;
+        REQUIRE(keycap::random::random_u64() == expected);
+    }
+
+    SECTION("i64")
+    {
+        constexpr i64 expected = -7376994870862721386;
+        REQUIRE(keycap::random::random_i64() == expected);
+    }
+
+    SECTION("u32")
+    {
+        constexpr u32 expected = 0x503b03a4;
+        REQUIRE(keycap::random::random_u32() == expected);
+    }
+
+    SECTION("i32")
+    {
+        constexpr i32 expected = 0x67c75170;
+        REQUIRE(keycap::random::random_i32() == expected);
+    }
+
+    SECTION("u16")
+    {
+        constexpr u16 expected = 4669;
+        REQUIRE(keycap::random::random_u16() == expected);
+    }
+
+    SECTION("i16")
+    {
+        constexpr i16 expected = 3320;
+        REQUIRE(keycap::random::random_i16() == expected);
+    }
+
+    SECTION("u8")
+    {
+        constexpr u8 expected = 88;
+        REQUIRE((int)keycap::random::random_u8() == (int)expected);
+    }
+
+    SECTION("i8")
+    {
+        constexpr i8 expected = 102;
+        REQUIRE((int)keycap::random::random_i8() == (int)expected);
+    }
+
+    SECTION("seeded u64")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr u64 expected = 0x2596b32dc4a79b6a;
+        REQUIRE(keycap::random::random_u64() == expected);
+    }
+
+    SECTION("seeded i64")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr i64 expected = -6514822801790624918;
+        REQUIRE(keycap::random::random_i64() == expected);
+    }
+
+    SECTION("seeded u32")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr u32 expected = 0xc4a79b6a;
+        REQUIRE(keycap::random::random_u32() == expected);
+    }
+
+    SECTION("seeded i32")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr i32 expected = 0x44a79b6a;
+        REQUIRE(keycap::random::random_i32() == expected);
+    }
+
+    SECTION("seeded u16")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr u16 expected = 39786;
+        REQUIRE(keycap::random::random_u16() == expected);
+    }
+
+    SECTION("seeded i16")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr i16 expected = 7018;
+        REQUIRE(keycap::random::random_i16() == expected);
+    }
+
+    SECTION("seeded u8")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr u8 expected = 37;
+        REQUIRE((int)keycap::random::random_u8() == (int)expected);
+    }
+
+    SECTION("seeded i8")
+    {
+        keycap::random::seed(0xABBAB33FAC1D4689);
+
+        constexpr i8 expected = -91;
+        REQUIRE((int)keycap::random::random_i8() == (int)expected);
+    }
+}
